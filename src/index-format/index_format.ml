@@ -16,7 +16,7 @@ module Lid : Set.OrderedType with type t = Longident.t Location.loc = struct
 end
 
 module Lid_set = Set.Make (Lid)
-module Uid_map = Shape.Uid.Map
+module Uid_map = Granular_map.Make (Shape.Uid)
 module Stats = Map.Make (String)
 
 let add map uid locs =

@@ -6,7 +6,7 @@ val link : 'a -> 'a link
 
 val fetch : 'a link -> 'a
 (** [fetch lnk] returns the value pointed by the link [lnk].
-  
+
     We of course have [fetch (link v) = v] and [link (fetch lnk) = lnk]. *)
 
 (** For this demo we can't depend on a PPX or external dependencies,

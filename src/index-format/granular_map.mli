@@ -5,12 +5,14 @@ module type OrderedType = sig
   val compare : t -> t -> int
 end
 
-module Make (Ord : OrderedType) : sig
-  type 'a s
-  type 'a t = 'a s link
-  type key = Ord.t
+module type S = sig
+  type key
+  type 'a s =
+  | Empty
+  | Node of {l:'a t; v:key; d:'a; r:'a t; h:int}
+  and 'a t = 'a s link
 
-  val empty: string t
+  val empty: unit -> 'a t
   val bindings: 'a t -> (key * 'a) list
   val add: key -> 'a -> 'a t -> 'a t
   val singleton: key -> 'a -> 'a t
@@ -28,4 +30,6 @@ module Make (Ord : OrderedType) : sig
   val schema: Granular_marshal.iter ->
     (key -> 'a -> unit) -> 'a s Granular_marshal.link -> unit
 end
+
+module Make (Ord : OrderedType) : S with type key = Ord.t
 

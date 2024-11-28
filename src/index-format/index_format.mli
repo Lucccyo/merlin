@@ -6,7 +6,7 @@ val magic_number : string
 module Lid : Set.OrderedType with type t = Longident.t Location.loc
 module Lid_set : Set.S with type elt = Lid.t
 module Stats : Map.S with type key = String.t
-module Uid_map = Shape.Uid.Map
+module Uid_map : Granular_map.S with type key = Shape.Uid.t
 
 type stat = { mtime : float; size : int; source_digest : string option }
 
