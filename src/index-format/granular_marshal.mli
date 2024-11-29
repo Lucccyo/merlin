@@ -42,18 +42,18 @@ val schema_no_sublinks : 'a schema
 (** A schema usable when the ['a] value does not contain any links. *)
 
 val write :
-  ?flags:Marshal.extern_flags list -> string -> 'a schema -> 'a -> unit
-(** [write filename schema value] writes the [value] in the file [filename],
+  ?flags:Marshal.extern_flags list -> out_channel -> 'a schema -> 'a -> unit
+(** [write oc schema value] writes the [value] in the output channel [oc],
     creating unmarshalling boundaries on every link in [value] specified
     by the [schema]. *)
 
 type store
 (** The type to represent an open disk connection. *)
 
-val read : string -> 'a schema -> store * 'a
-(** [read filename schema] reads the value marshalled in the file [filename],
+val read : in_channel -> 'a schema -> 'a
+(** [read ic schema] reads the value marshalled in the input channel [ic],
     stopping the unmarshalling on every link boundary indicated by the [schema].
-    It returns the open [store] and the root [value] read.  *)
+    It returns the root [value] read.  *)
 
 val close : store -> unit
 (** [close store] closes the connection to the disk. Any further {!fetch} requiring
