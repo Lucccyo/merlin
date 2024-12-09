@@ -32,6 +32,7 @@ let fetch lnk =
   | In_memory v -> v
   | Serialized _ -> invalid_arg "fetch: serialized"
   | On_disk {fd; loc; schema} ->
+    Format.printf "...%d................@." loc;
       let v = fetch_loc fd loc schema in
       lnk := In_memory v ;
       v
